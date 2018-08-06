@@ -1,6 +1,7 @@
-# ImageProcess_
+# ImageProcess_Recognition
 
 Here are codes to solve some problems about image process 、image recognition and so on.
+<<<<<<< HEAD
 
 
 **Field_Of_View**: in order to extract the center object sign(a white bar), Hough Transform is applied in the codes, which can extract the circle enclosing our object sign. 
@@ -9,3 +10,5 @@ Here are codes to solve some problems about image process 、image recognition a
 
 **Zero_Move_Momentum**: be similar to Field_Of_View.
 
+=======
+>>>>>>> origin/master
