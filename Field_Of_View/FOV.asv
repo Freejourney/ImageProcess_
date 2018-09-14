@@ -1,7 +1,7 @@
 %% Load and Inicialize image 
 clear all;
 clc;
-img = imread('10.bmp');  
+img = imread('7.bmp');  
 img = rgb2gray(img);
 bw = im2bw(img, 0.26);
 bw = not(bw);
@@ -50,23 +50,35 @@ max_len = 0;
 xy_long = [0 0; 0 0];
 xy_second_long = [0 0; 0 0];
 second_len = 0;
-xy = [];
+xy = [0, 0; 0
 for k = 1:length(lines)
     % 绘制第k条"竖着的"直线
     y_ = lines(k).point2(2)-lines(k).point1(2);
     x_ = lines(k).point2(1)-lines(k).point1(1);
     if (y_/x_) > 0
-        xy = [xy; [lines(k).point1; lines(k).point2]];
+        xy = cat(xy, [lines(k).point1; lines(k).point2]);
+        plot(xy(:,1),xy(:,2),'LineWidth',2,'Color','green');
 
         % 绘制第k条直线的起点（黄色）、终点（红色）
         plot(xy(1,1),xy(1,2),'x','LineWidth',2,'Color','yellow');
         plot(xy(2,1),xy(2,2),'x','LineWidth',2,'Color','red');
+
+        % 计算第k条直线的长度，保留最长直线的端点
+        len = norm(lines(k).point1 - lines(k).point2);
+        if ( len > max_len)
+            max_len = len;
+            xy_long = xy;
+        end
+        if (len > second_len && len < max_len)
+           second_len = len;
+           xy_second_long = xy;
+        end
     end
 end
 title('提取到的直线');
 
-xy_long = [xy(1,1) xy(1,2); xy(2,1) xy(2,2)];
-xy_second_long = [xy(3,1) xy(3,2); xy(4,1) xy(4,2)];
+xy_long = [xy(:,1); xy(:,2)];
+xy_second_long = [xy(:,3); xy(:,4)];
 
 point1 = [(xy_long(1,1)+xy_long(2,1))/2; (xy_long(1,2)+xy_long(2,2))/2];
 point2 = [(xy_second_long(1,1)+xy_second_long(2,1))/2; (xy_second_long(1,2)+xy_second_long(2,2))/2];
@@ -82,6 +94,5 @@ plot(point(1), point(2), 'o', 'Color', 'red');
 plot(xy_second_long(:,1),xy_second_long(:,2),'LineWidth',2,'Color','red');
 
 %% Calculate Rectangle
-point(1)
-point(2)
+[S,s] = calcu_rect_FOV(Pic, img)
 
